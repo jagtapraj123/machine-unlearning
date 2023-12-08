@@ -1,0 +1,172 @@
+#!/bin/bash
+
+cd /homes/rjagtap/scratch/kd_project/memorization/src/experiments/unlearn
+
+nvidia-smi
+lscpu
+
+# # Forget Random
+# python forget_random.py 0.01 "retension_sets/retension_samples_bitvector_0.01"
+# python forget_random.py 0.05 "retension_sets/retension_samples_bitvector_0.05"
+# python forget_random.py 0.10 "retension_sets/retension_samples_bitvector_0.1"
+
+
+# # Forget Class
+# python forget_class.py 0 "retension_class_sets/forget_class_0" &
+# python forget_class.py 1 "retension_class_sets/forget_class_1" &
+# python forget_class.py 2 "retension_class_sets/forget_class_2" &
+# python forget_class.py 3 "retension_class_sets/forget_class_3" &
+
+
+# # Training with all dataset
+# python train_scratch.py "train_scratch_fullset" "fullset_model" --cuda-num 0 --num-workers 16 --coarse_labels > runlog_scratch_fullset.log &
+
+
+# # Training with retension sets
+# python train_scratch.py "train_scratch_retension_set_0.01" "retension_set_scratch_model" --cuda-num 0 --num-workers 16 --coarse_labels --bitvector_path "retension_sets/retension_samples_bitvector_0.01.pkl" > runlog_scratch_retension_set_0.01.log &
+# python train_scratch.py "train_scratch_retension_set_0.05" "retension_set_scratch_model" --cuda-num 1 --num-workers 16 --coarse_labels --bitvector_path "retension_sets/retension_samples_bitvector_0.05.pkl" > runlog_scratch_retension_set_0.05.log &
+# python train_scratch.py "train_scratch_retension_set_0.1"  "retension_set_scratch_model" --cuda-num 2 --num-workers 16 --coarse_labels --bitvector_path "retension_sets/retension_samples_bitvector_0.1.pkl"  > runlog_scratch_retension_set_0.1.log &
+
+# python train_scratch.py "train_scratch_retension_set_cls_0"  "retension_set_scratch_model" --cuda-num 0 --num-workers 16 --coarse_labels --bitvector_path "retension_class_sets/forget_class_0.pkl"  > runlog_scratch_retension_set_cls_0.log &
+# python train_scratch.py "train_scratch_retension_set_cls_1"  "retension_set_scratch_model" --cuda-num 0 --num-workers 16 --coarse_labels --bitvector_path "retension_class_sets/forget_class_1.pkl"  > runlog_scratch_retension_set_cls_1.log &
+# python train_scratch.py "train_scratch_retension_set_cls_2"  "retension_set_scratch_model" --cuda-num 1 --num-workers 16 --coarse_labels --bitvector_path "retension_class_sets/forget_class_2.pkl"  > runlog_scratch_retension_set_cls_2.log &
+
+
+# # Unlearning using Random Teacher
+# python unlearn_teacher.py "train_unlearn_random_teacher_set_0.01_2" "unlearn_random_teacher_model" "fullset_model/train_scratch_fullset_20231123-225317/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.01.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > runlog_unlearn_random_teacher_set_0.01_2.log &
+# python unlearn_teacher.py "train_unlearn_random_teacher_set_0.05_2" "unlearn_random_teacher_model" "fullset_model/train_scratch_fullset_20231123-225317/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.05.pkl" --cuda-num 1 --num-workers 16 --coarse_labels > runlog_unlearn_random_teacher_set_0.05_2.log &
+# python unlearn_teacher.py "train_unlearn_random_teacher_set_0.1_2"  "unlearn_random_teacher_model" "fullset_model/train_scratch_fullset_20231123-225317/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.1.pkl"  --cuda-num 2 --num-workers 16 --coarse_labels > runlog_unlearn_random_teacher_set_0.1_2.log &
+
+# python unlearn_teacher.py "train_unlearn_random_teacher_set_cls_0"  "unlearn_random_teacher_model" "fullset_model/train_scratch_fullset_20231123-225317/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > runlog_unlearn_random_teacher_set_cls_0.log &
+# python unlearn_teacher.py "train_unlearn_random_teacher_set_cls_1"  "unlearn_random_teacher_model" "fullset_model/train_scratch_fullset_20231123-225317/checkpoints/5/model.pth" "retension_class_sets/forget_class_1.pkl"  --cuda-num 1 --num-workers 16 --coarse_labels > runlog_unlearn_random_teacher_set_cls_1.log &
+# python unlearn_teacher.py "train_unlearn_random_teacher_set_cls_2"  "unlearn_random_teacher_model" "fullset_model/train_scratch_fullset_20231123-225317/checkpoints/5/model.pth" "retension_class_sets/forget_class_2.pkl"  --cuda-num 2 --num-workers 16 --coarse_labels > runlog_unlearn_random_teacher_set_cls_2.log &
+
+
+# # Unlearning using Amnesiac
+# python unlearn_amnesiac.py "train_unlearn_amnesiac_set_0.01" "unlearn_amnesiac_model" "fullset_model/train_scratch_fullset_20231123-225317/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.01.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > runlog_unlearn_amnesiac_set_0.01.log &
+# python unlearn_amnesiac.py "train_unlearn_amnesiac_set_0.05" "unlearn_amnesiac_model" "fullset_model/train_scratch_fullset_20231123-225317/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.05.pkl" --cuda-num 1 --num-workers 16 --coarse_labels > runlog_unlearn_amnesiac_set_0.05.log &
+# python unlearn_amnesiac.py "train_unlearn_amnesiac_set_0.1"  "unlearn_amnesiac_model" "fullset_model/train_scratch_fullset_20231123-225317/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.1.pkl"  --cuda-num 2 --num-workers 16 --coarse_labels > runlog_unlearn_amnesiac_set_0.1.log &
+
+# python unlearn_amnesiac.py "train_unlearn_amnesiac_set_cls_0"  "unlearn_amnesiac_model" "fullset_model/train_scratch_fullset_20231123-225317/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > runlog_unlearn_amnesiac_set_cls_0.log &
+# python unlearn_amnesiac.py "train_unlearn_amnesiac_set_cls_1"  "unlearn_amnesiac_model" "fullset_model/train_scratch_fullset_20231123-225317/checkpoints/5/model.pth" "retension_class_sets/forget_class_1.pkl"  --cuda-num 1 --num-workers 16 --coarse_labels > runlog_unlearn_amnesiac_set_cls_1.log &
+# python unlearn_amnesiac.py "train_unlearn_amnesiac_set_cls_2"  "unlearn_amnesiac_model" "fullset_model/train_scratch_fullset_20231123-225317/checkpoints/5/model.pth" "retension_class_sets/forget_class_2.pkl"  --cuda-num 2 --num-workers 16 --coarse_labels > runlog_unlearn_amnesiac_set_cls_2.log &
+
+
+# Unlearning using UNSIR
+# python unlearn_unsir.py "train_unlearn_unsir_set_0" "unlearn_unsir_model" "fullset_model/train_scratch_fullset_20231123-225317/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > runlog_unlearn_unsir_set_0.log &
+
+
+# Testing Retension
+# python testing.py "train_unlearn_amnesiac_set_0.01" "vs_y_truth" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_0.01_20231126-032009/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.01.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_0.01_vs_y_truth.log
+# python testing.py "train_unlearn_amnesiac_set_0.05" "vs_y_truth" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_0.05_20231126-032009/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.05.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_0.05_vs_y_truth.log
+# python testing.py "train_unlearn_amnesiac_set_0.1"  "vs_y_truth" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_0.1_20231126-032009/checkpoints/5/model.pth"  "retension_sets/retension_samples_bitvector_0.1.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_0.1_vs_y_truth.log
+
+# python testing.py "train_unlearn_amnesiac_set_cls_0"  "vs_y_truth" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_0_20231130-135133/checkpoints/5/model.pth"  "retension_class_sets/forget_class_0.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_0_vs_y_truth.log
+# python testing.py "train_unlearn_amnesiac_set_cls_1"  "vs_y_truth" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_1_20231130-135133/checkpoints/5/model.pth"  "retension_class_sets/forget_class_1.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_1_vs_y_truth.log
+# python testing.py "train_unlearn_amnesiac_set_cls_2"  "vs_y_truth" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_2_20231130-135132/checkpoints/5/model.pth"  "retension_class_sets/forget_class_2.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_2_vs_y_truth.log
+
+# python testing.py "train_unlearn_random_teacher_set_0.01" "vs_y_truth" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_0.01_2_20231126-031027/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.01.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_0.01_vs_y_truth.log
+# python testing.py "train_unlearn_random_teacher_set_0.05" "vs_y_truth" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_0.05_2_20231126-031027/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.05.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_0.05_vs_y_truth.log
+# python testing.py "train_unlearn_random_teacher_set_0.1"  "vs_y_truth" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_0.1_2_20231126-031027/checkpoints/5/model.pth"  "retension_sets/retension_samples_bitvector_0.1.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_0.1_vs_y_truth.log
+
+
+# python testing.py "train_unlearn_random_teacher_set_cls_0" "vs_y_truth" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_0_20231130-132823/checkpoints/5/model.pth"  "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_0_vs_y_truth.log
+# python testing.py "train_unlearn_random_teacher_set_cls_1" "vs_y_truth" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_1_20231130-132823/checkpoints/5/model.pth"  "retension_class_sets/forget_class_1.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_1_vs_y_truth.log
+# python testing.py "train_unlearn_random_teacher_set_cls_2" "vs_y_truth" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_2_20231130-132823/checkpoints/5/model.pth"  "retension_class_sets/forget_class_2.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_2_vs_y_truth.log
+
+# python testing.py "train_unlearn_unsir_set_cls_0" "vs_y_truth" "unlearn_unsir_model/train_unlearn_unsir_set_0_20231130-130212/checkpoints/1/model.pth"  "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_unsir_set_cls_0_vs_y_truth.log
+
+# Testing Forget
+# python testing_forget.py "train_unlearn_amnesiac_set_0.01" "vs_y_truth" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_0.01_20231126-032009/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.01.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_0.01_vs_y_truth_forget.log
+# python testing_forget.py "train_unlearn_amnesiac_set_0.05" "vs_y_truth" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_0.05_20231126-032009/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.05.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_0.05_vs_y_truth_forget.log
+# python testing_forget.py "train_unlearn_amnesiac_set_0.1"  "vs_y_truth" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_0.1_20231126-032009/checkpoints/5/model.pth"  "retension_sets/retension_samples_bitvector_0.1.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_0.1_vs_y_truth_forget.log
+
+# python testing_forget.py "train_unlearn_amnesiac_set_cls_0"  "vs_y_truth" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_0_20231130-135133/checkpoints/5/model.pth"  "retension_class_sets/forget_class_0.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_0_vs_y_truth_forget.log
+# python testing_forget.py "train_unlearn_amnesiac_set_cls_1"  "vs_y_truth" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_1_20231130-135133/checkpoints/5/model.pth"  "retension_class_sets/forget_class_1.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_1_vs_y_truth_forget.log
+# python testing_forget.py "train_unlearn_amnesiac_set_cls_2"  "vs_y_truth" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_2_20231130-135132/checkpoints/5/model.pth"  "retension_class_sets/forget_class_2.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_2_vs_y_truth_forget.log
+
+# python testing_forget.py "train_unlearn_random_teacher_set_0.01" "vs_y_truth" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_0.01_2_20231126-031027/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.01.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_0.01_vs_y_truth_forget.log
+# python testing_forget.py "train_unlearn_random_teacher_set_0.05" "vs_y_truth" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_0.05_2_20231126-031027/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.05.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_0.05_vs_y_truth_forget.log
+# python testing_forget.py "train_unlearn_random_teacher_set_0.1"  "vs_y_truth" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_0.1_2_20231126-031027/checkpoints/5/model.pth"  "retension_sets/retension_samples_bitvector_0.1.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_0.1_vs_y_truth_forget.log
+
+
+# python testing_forget.py "train_unlearn_random_teacher_set_cls_0" "vs_y_truth" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_0_20231130-132823/checkpoints/5/model.pth"  "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_0_vs_y_truth_forget.log
+# python testing_forget.py "train_unlearn_random_teacher_set_cls_1" "vs_y_truth" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_1_20231130-132823/checkpoints/5/model.pth"  "retension_class_sets/forget_class_1.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_1_vs_y_truth_forget.log
+# python testing_forget.py "train_unlearn_random_teacher_set_cls_2" "vs_y_truth" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_2_20231130-132823/checkpoints/5/model.pth"  "retension_class_sets/forget_class_2.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_2_vs_y_truth_forget.log
+
+# python testing_forget.py "train_unlearn_unsir_set_cls_0" "vs_y_truth" "unlearn_unsir_model/train_unlearn_unsir_set_0_20231130-130212/checkpoints/1/model.pth"  "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_unsir_set_cls_0_vs_y_truth_forget.log
+
+# Testing vs Gold
+# python testing_cmp.py "train_unlearn_amnesiac_set_0.01" "vs_retrain_model" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_0.01_20231126-032009/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_0.01_20231123-225514/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.01.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_0.01_vs_retrain_model.log
+# python testing_cmp.py "train_unlearn_amnesiac_set_0.05" "vs_retrain_model" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_0.05_20231126-032009/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_0.05_20231123-225514/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.05.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_0.05_vs_retrain_model.log
+# python testing_cmp.py "train_unlearn_amnesiac_set_0.1"  "vs_retrain_model" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_0.1_20231126-032009/checkpoints/5/model.pth"  "retension_set_scratch_model/train_scratch_retension_set_0.1_20231123-225514/checkpoints/5/model.pth"  "retension_sets/retension_samples_bitvector_0.1.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_0.1_vs_retrain_model.log
+
+# python testing_cmp.py "train_unlearn_amnesiac_set_cls_0"  "vs_retrain_model" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_0_20231130-135133/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_0_20231130-172906/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_0_vs_retrain_model.log
+# python testing_cmp.py "train_unlearn_amnesiac_set_cls_1"  "vs_retrain_model" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_1_20231130-135133/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_1_20231130-173007/checkpoints/5/model.pth" "retension_class_sets/forget_class_1.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_1_vs_retrain_model.log
+# python testing_cmp.py "train_unlearn_amnesiac_set_cls_2"  "vs_retrain_model" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_2_20231130-135132/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_2_20231130-173007/checkpoints/5/model.pth" "retension_class_sets/forget_class_2.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_2_vs_retrain_model.log
+
+# python testing_cmp.py "train_unlearn_random_teacher_set_0.01" "vs_retrain_model" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_0.01_2_20231126-031027/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_0.01_20231123-225514/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.01.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_0.01_vs_retrain_model.log
+# python testing_cmp.py "train_unlearn_random_teacher_set_0.05" "vs_retrain_model" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_0.05_2_20231126-031027/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_0.05_20231123-225514/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.05.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_0.05_vs_retrain_model.log
+# python testing_cmp.py "train_unlearn_random_teacher_set_0.1"  "vs_retrain_model" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_0.1_2_20231126-031027/checkpoints/5/model.pth"  "retension_set_scratch_model/train_scratch_retension_set_0.1_20231123-225514/checkpoints/5/model.pth"  "retension_sets/retension_samples_bitvector_0.1.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_0.1_vs_retrain_model.log
+
+
+# python testing_cmp.py "train_unlearn_random_teacher_set_cls_0" "vs_retrain_model" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_0_20231130-132823/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_0_20231130-172906/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_0_vs_retrain_model.log
+# python testing_cmp.py "train_unlearn_random_teacher_set_cls_1" "vs_retrain_model" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_1_20231130-132823/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_1_20231130-173007/checkpoints/5/model.pth" "retension_class_sets/forget_class_1.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_1_vs_retrain_model.log
+# python testing_cmp.py "train_unlearn_random_teacher_set_cls_2" "vs_retrain_model" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_2_20231130-132823/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_2_20231130-173007/checkpoints/5/model.pth" "retension_class_sets/forget_class_2.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_2_vs_retrain_model.log
+
+# python testing_cmp.py "train_unlearn_unsir_set_cls_0" "vs_retrain_model" "unlearn_unsir_model/train_unlearn_unsir_set_0_20231130-130212/checkpoints/1/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_0_20231130-172906/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_unsir_set_cls_0_vs_retrain_model.log
+
+# 
+# python testing_cmp_forget.py "train_unlearn_amnesiac_set_0.01" "vs_retrain_model" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_0.01_20231126-032009/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_0.01_20231123-225514/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.01.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_0.01_vs_retrain_model_forget.log
+# python testing_cmp_forget.py "train_unlearn_amnesiac_set_0.05" "vs_retrain_model" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_0.05_20231126-032009/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_0.05_20231123-225514/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.05.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_0.05_vs_retrain_model_forget.log
+# python testing_cmp_forget.py "train_unlearn_amnesiac_set_0.1"  "vs_retrain_model" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_0.1_20231126-032009/checkpoints/5/model.pth"  "retension_set_scratch_model/train_scratch_retension_set_0.1_20231123-225514/checkpoints/5/model.pth"  "retension_sets/retension_samples_bitvector_0.1.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_0.1_vs_retrain_model_forget.log
+
+# python testing_cmp_forget.py "train_unlearn_amnesiac_set_cls_0"  "vs_retrain_model" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_0_20231130-135133/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_0_20231130-172906/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_0_vs_retrain_model_forget.log
+# python testing_cmp_forget.py "train_unlearn_amnesiac_set_cls_1"  "vs_retrain_model" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_1_20231130-135133/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_1_20231130-173007/checkpoints/5/model.pth" "retension_class_sets/forget_class_1.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_1_vs_retrain_model_forget.log
+# python testing_cmp_forget.py "train_unlearn_amnesiac_set_cls_2"  "vs_retrain_model" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_2_20231130-135132/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_2_20231130-173007/checkpoints/5/model.pth" "retension_class_sets/forget_class_2.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_2_vs_retrain_model_forget.log
+
+# python testing_cmp_forget.py "train_unlearn_random_teacher_set_0.01" "vs_retrain_model" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_0.01_2_20231126-031027/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_0.01_20231123-225514/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.01.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_0.01_vs_retrain_model_forget.log
+# python testing_cmp_forget.py "train_unlearn_random_teacher_set_0.05" "vs_retrain_model" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_0.05_2_20231126-031027/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_0.05_20231123-225514/checkpoints/5/model.pth" "retension_sets/retension_samples_bitvector_0.05.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_0.05_vs_retrain_model_forget.log
+# python testing_cmp_forget.py "train_unlearn_random_teacher_set_0.1"  "vs_retrain_model" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_0.1_2_20231126-031027/checkpoints/5/model.pth"  "retension_set_scratch_model/train_scratch_retension_set_0.1_20231123-225514/checkpoints/5/model.pth"  "retension_sets/retension_samples_bitvector_0.1.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_0.1_vs_retrain_model_forget.log
+
+
+# python testing_cmp_forget.py "train_unlearn_random_teacher_set_cls_0" "vs_retrain_model" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_0_20231130-132823/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_0_20231130-172906/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_0_vs_retrain_model_forget.log
+# python testing_cmp_forget.py "train_unlearn_random_teacher_set_cls_1" "vs_retrain_model" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_1_20231130-132823/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_1_20231130-173007/checkpoints/5/model.pth" "retension_class_sets/forget_class_1.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_1_vs_retrain_model_forget.log
+# python testing_cmp_forget.py "train_unlearn_random_teacher_set_cls_2" "vs_retrain_model" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_2_20231130-132823/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_2_20231130-173007/checkpoints/5/model.pth" "retension_class_sets/forget_class_2.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_2_vs_retrain_model_forget.log
+
+# python testing_cmp_forget.py "train_unlearn_unsir_set_cls_0" "vs_retrain_model" "unlearn_unsir_model/train_unlearn_unsir_set_0_20231130-130212/checkpoints/1/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_0_20231130-172906/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_unsir_set_cls_0_vs_retrain_model_forget.log
+
+# ####
+# python testing.py "train_unlearn_amnesiac_set_cls_0"  "vs_y_truth" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_0_20231130-135133/checkpoints/5/model.pth"  "retension_class_sets/forget_class_0.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_0_vs_y_truth_test.log
+# python testing.py "train_unlearn_random_teacher_set_cls_0" "vs_y_truth" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_0_20231130-132823/checkpoints/5/model.pth"  "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_0_vs_y_truth_test.log
+# python testing.py "train_unlearn_unsir_set_cls_0" "vs_y_truth" "unlearn_unsir_model/train_unlearn_unsir_set_0_20231130-130212/checkpoints/1/model.pth"  "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_unsir_set_cls_0_vs_y_truth_test.log
+
+# python testing_forget.py "train_unlearn_amnesiac_set_cls_0"  "vs_y_truth" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_0_20231130-135133/checkpoints/5/model.pth"  "retension_class_sets/forget_class_0.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_0_vs_y_truth_forget_test.log
+# python testing_forget.py "train_unlearn_random_teacher_set_cls_0" "vs_y_truth" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_0_20231130-132823/checkpoints/5/model.pth"  "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_0_vs_y_truth_forget_test.log
+# python testing_forget.py "train_unlearn_unsir_set_cls_0" "vs_y_truth" "unlearn_unsir_model/train_unlearn_unsir_set_0_20231130-130212/checkpoints/1/model.pth"  "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_unsir_set_cls_0_vs_y_truth_forget_test.log
+
+# python testing_cmp.py "train_unlearn_amnesiac_set_cls_0"  "vs_retrain_model" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_0_20231130-135133/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_0_20231130-172906/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_0_vs_retrain_modeltest.log
+# python testing_cmp.py "train_unlearn_random_teacher_set_cls_0" "vs_retrain_model" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_0_20231130-132823/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_0_20231130-172906/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_0_vs_retrain_modeltest.log
+# python testing_cmp.py "train_unlearn_unsir_set_cls_0" "vs_retrain_model" "unlearn_unsir_model/train_unlearn_unsir_set_0_20231130-130212/checkpoints/1/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_0_20231130-172906/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_unsir_set_cls_0_vs_retrain_modeltest.log
+
+python testing_cmp_forget.py "train_unlearn_amnesiac_set_cls_0"  "vs_retrain_model" "unlearn_amnesiac_model/train_unlearn_amnesiac_set_cls_0_20231130-135133/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_0_20231130-172906/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl"  --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_amnesiac_set_cls_0_vs_retrain_model_forgettest.log
+python testing_cmp_forget.py "train_unlearn_random_teacher_set_cls_0" "vs_retrain_model" "unlearn_random_teacher_model/train_unlearn_random_teacher_set_cls_0_20231130-132823/checkpoints/5/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_0_20231130-172906/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_random_teacher_set_cls_0_vs_retrain_model_forgettest.log
+python testing_cmp_forget.py "train_unlearn_unsir_set_cls_0" "vs_retrain_model" "unlearn_unsir_model/train_unlearn_unsir_set_0_20231130-130212/checkpoints/1/model.pth" "retension_set_scratch_model/train_scratch_retension_set_cls_0_20231130-172906/checkpoints/5/model.pth" "retension_class_sets/forget_class_0.pkl" --cuda-num 0 --num-workers 16 --coarse_labels > testlog_unlearn_unsir_set_cls_0_vs_retrain_model_forgettest.log
+
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+sleep 30
+nvidia-smi
+
+wait < <(jobs -p)
